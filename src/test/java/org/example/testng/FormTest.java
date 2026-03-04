@@ -34,7 +34,7 @@ public class FormTest {
     @Step("Setup: initializeaza browser-ul")
     public void beforeMethod() {
         logger.info("=== BEFORE METHOD: pornire driver ===");
-        driver = Driver.getDriver();
+        driver = Driver.getRemoteDriver();
         driver.manage().window().maximize();
         logger.info("Driver pornit: {}", driver.getClass().getSimpleName());
     }
