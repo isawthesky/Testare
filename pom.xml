@@ -1,0 +1,107 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.example</groupId>
+  <artifactId>testweb</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>testweb</name>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <selenium.version>4.35.0</selenium.version>
+    <testng.version>7.11.0</testng.version>
+    <wdm.version>6.3.2</wdm.version>
+    <log4j.version>2.23.1</log4j.version>
+    <allure.version>2.27.0</allure.version>
+    <aspectj.version>1.9.22</aspectj.version>
+    <!--  Parametri configurabili din CLI / GitHub Actions  -->
+    <selenoid.url>http://localhost:4444/wd/hub</selenoid.url>
+    <use.remote>false</use.remote>
+  </properties>
+  <dependencies>
+    <!--  Selenium  -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>${selenium.version}</version>
+    </dependency>
+    <!--  TestNG  -->
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>${testng.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!--  WebDriverManager  -->
+    <dependency>
+      <groupId>io.github.bonigarcia</groupId>
+      <artifactId>webdrivermanager</artifactId>
+      <version>${wdm.version}</version>
+    </dependency>
+    <!--  Log4j2 (versiune actualizata)  -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j2-impl</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+    <!--  Allure TestNG (rapoarte frumoase)  -->
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-testng</artifactId>
+      <version>${allure.version}</version>
+    </dependency>
+    <!--  AspectJ Weaver - necesar pentru Allure @Step annotations  -->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>${aspectj.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <!--  Maven Surefire - ruleaza TestNG si genereaza rapoarte  -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.2.5</version>
+        <configuration>
+          <suiteXmlFiles>
+            <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+          </suiteXmlFiles>
+          <systemPropertyVariables>
+            <selenoid.url>${selenoid.url}</selenoid.url>
+            <use.remote>${use.remote}</use.remote>
+          </systemPropertyVariables>
+          <argLine> -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar </argLine>
+        </configuration>
+      </plugin>
+      <!--  Maven Surefire Report  -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>3.2.5</version>
+      </plugin>
+      <!--  Allure Maven Plugin  -->
+      <plugin>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-maven</artifactId>
+        <version>2.12.0</version>
+        <configuration>
+          <reportVersion>${allure.version}</reportVersion>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

@@ -1,0 +1,21 @@
+# Maven
+target/
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Logs (pastreaza directorul dar nu fisierele)
+logs/*.log
+logs/*.log.gz
+!logs/.gitkeep
+
+# Videos test
+test-videos/
+*.mp4
+
+# OS
+.DS_Store
+Thumbs.db
