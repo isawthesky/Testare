@@ -19,13 +19,13 @@ public class FormTest {
 
     // ── Date de test ──────────────────────────────────────────────────────────
     private static final String URL        = "https://demoqa.com/";
-    private static final String FIRST_NAME = "Alexei";
-    private static final String LAST_NAME  = "Suhari";
-    private static final String EMAIL      = "suharia7002@mail.ru";
+    private static final String FIRST_NAME = "Plop";
+    private static final String LAST_NAME  = "Ion";
+    private static final String EMAIL      = "ionplop22@gmail.com";
     private static final String GENDER     = "Male";
     private static final String SUBJECT    = "Maths";
-    private static final String PHONE      = "0609750000";
-    private static final String DATE       = "30 Mar 2007";
+    private static final String PHONE      = "0683775699";
+    private static final String DATE       = "08 Apr 2006";
     private static final String HOBBY      = "Sports";
     private static final String STATE      = "Rajasthan";
     private static final String CITY       = "Jaipur";
@@ -34,7 +34,7 @@ public class FormTest {
     @Step("Setup: initializeaza browser-ul")
     public void beforeMethod() {
         logger.info("=== BEFORE METHOD: pornire driver ===");
-        driver = Driver.getRemoteDriver();
+        driver = Driver.getLocalDriver();
         driver.manage().window().maximize();
         logger.info("Driver pornit: {}", driver.getClass().getSimpleName());
     }

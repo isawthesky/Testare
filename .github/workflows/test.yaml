@@ -74,12 +74,6 @@ jobs:
           name: logs
           path: ./logs
 
-      - name: Uploading Allure results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-results
-          path: ./target/allure-results
 #      - name: Setup tmate session
 #        if: ${{ failure() }}
 #        uses: mxschmitt/action-tmate@v3.11
